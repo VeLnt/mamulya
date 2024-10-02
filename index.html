@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>С Днём Рождения, Мама!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #001f3f, #7f0000);
+            overflow: hidden;
+            color: white;
+            text-align: center;
+            height: 100vh;
+            position: relative;
+        }
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 90%; /* Изменено для мобильных устройств */
+            max-width: 600px;
+            margin: 0 auto;
+            padding-top: 10vh;
+        }
+        .header {
+            font-size: 2.5em; /* Уменьшен размер шрифта для мобильных */
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+        }
+        .image-container {
+            position: relative;
+            margin: 20px 0;
+            z-index: 1;
+        }
+        .image-container img {
+            width: 100%; /* Убедимся, что изображение масштабируется */
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+        }
+        .btn {
+            background-color: #7f0000;
+            border: none;
+            padding: 15px 20px; /* Уменьшен размер кнопки для мобильных */
+            color: white;
+            font-size: 1.3em; /* Уменьшен размер шрифта */
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            width: 100%; /* Кнопка занимает всю ширину */
+            max-width: 300px; /* Ограничиваем максимальную ширину кнопки */
+            margin: 20px auto; /* Центрируем кнопку */
+        }
+        .btn:hover {
+            background-color: #aa0000;
+            transform: scale(1.05); /* Уменьшен эффект при наведении */
+        }
+        .message {
+            position: absolute;
+            font-size: 1.2em; /* Уменьшен размер текста сообщения */
+            color: #ffffff;
+            text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            z-index: 1000; /* Высокий z-index для сообщений */
+            animation: fadeIn 1.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Красивое оформление подписи */
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 1.2em; /* Уменьшен размер шрифта */
+            color: #fff;
+            background: linear-gradient(45deg, #ffcc00, #ff66ff, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+            font-weight: bold;
+        }
+
+        /* Летающие шарики */
+        .balloon {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: floatBalloon 10s infinite ease-in-out;
+        }
+
+        @keyframes floatBalloon {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(20vh) scale(1);
+            }
+            100% {
+                transform: translateY(-100vh) scale(0.5);
+                opacity: 0.5;
+            }
+        }
+
+        /* Звезды */
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.5;
+            }
+        }
+
+        /* Лепестки */
+        .petal {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: pink;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall 10s infinite ease-in-out;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        /* Анимация фейерверка */
+        @keyframes explosion {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: yellow;
+            border-radius: 50%;
+            animation: explosion 1s ease-in-out forwards;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">С Днём Рождения, Мама!</div>
+        <div class="image-container">
+            <img src="https://kartinki.pics/pics/uploads/posts/2022-08/thumbs/1659506029_1-kartinkin-net-p-pole-pionov-tsveti-krasivo-foto-1.jpg" alt="Пионы">
+        </div>
+        <button class="btn" onclick="createFireworks(); createMessages();">Нажми на эту кнопку, мамуль</button>
+    </div>
+
+    <!-- Подпись снизу -->
+    <div class="footer">Сделано Артуром</div>
+
+    <!-- Всплывающие сообщения -->
+    <div id="background-elements"></div>
+
+    <script>
+        function createBackgroundElements() {
+            const container = document.getElementById('background-elements');
+
+            // Добавляем шарики
+            for (let i = 0; i < 20; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.style.width = `${Math.random() * 40 + 20}px`;
+                balloon.style.height = balloon.style.width;
+                balloon.style.left = `${Math.random() * 100}vw`;
+                balloon.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                container.appendChild(balloon);
+            }
+
+            // Добавляем звезды
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.animationDuration = `${Math.random() * 5 + 2}s`;
+                container.appendChild(star);
+            }
+
+            // Добавляем падающие лепестки
+            for (let i = 0; i < 30; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.left = `${Math.random() * 100}vw`;
+                petal.style.animationDuration = `${Math.random() * 8 + 5}s`;
+                container.appendChild(petal);
+            }
+        }
+
+        // Создание фейерверков
+        function createFireworks() {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.className = 'firework';
+                    firework.style.left = `${Math.random() * 100}vw`;
+                    firework.style.top = `${Math.random() * 100}vh`;
+                    firework.style.width = `${Math.random() * 50 + 20}px`;
+                    firework.style.height = firework.style.width;
+                    firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                    document.body.appendChild(firework);
+                    
+                    setTimeout(() => {
+                        firework.remove();
+                    }, 1000);
+                }, i * 500);
+            }
+        }
+
+        // Создание сообщений
+        function createMessages() {
+            for (let i = 0; i < 10; i++) { // создаём 10 сообщений
+                setTimeout(() => {
+                    const message = document.createElement('div');
+                    message.className = 'message';
+                    message.textContent = 'Поздравляю тебя с днём рождения, любимая мама!';
+                    const { x, y } = getRandomPosition();
+                    message.style.left = `${x}px`;
+                    message.style.top = `${y}px`;
+                    document.body.appendChild(message);
+                    setTimeout(() => message.style.opacity = '1', 100);
+                }, i * 300);
+            }
+        }
+
+        function getRandomPosition() {
+            const x = Math.floor(Math.random() * window.innerWidth);
+            const y = Math.floor(Math.random() * window.innerHeight);
+            return { x, y };
+        }
+
+        createBackgroundElements();
+    </script>
+
+</body>
+</html>
